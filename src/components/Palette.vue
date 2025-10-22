@@ -24,9 +24,62 @@ const types = [
   { type: 'button', name: 'Button' }
 ]
 
+let dragState = null
+
 function startCreate(type, e) {
-  // Let the parent component handle the positioning logic
-  emit('create', type)
+  if (e.type === 'mousedown') {
+    // Start drag operation
+    dragState = { type, startX: e.clientX, startY: e.clientY, isDragging: false }
+    
+    // Add event listeners for drag
+    document.addEventListener('mousemove', onDragMove)
+    document.addEventListener('mouseup', onDragEnd)
+    
+    // Prevent default to avoid text selection
+    e.preventDefault()
+  }
+}
+
+function onDragMove(e) {
+  if (!dragState) return
+  
+  const deltaX = Math.abs(e.clientX - dragState.startX)
+  const deltaY = Math.abs(e.clientY - dragState.startY)
+  
+  // Start dragging if moved more than 5px
+  if (deltaX > 5 || deltaY > 5) {
+    dragState.isDragging = true
+    // Could add visual feedback here (drag preview)
+  }
+}
+
+function onDragEnd(e) {
+  if (!dragState) return
+  
+  // Clean up event listeners
+  document.removeEventListener('mousemove', onDragMove)
+  document.removeEventListener('mouseup', onDragEnd)
+  
+  if (dragState.isDragging) {
+    // Get canvas element bounds to calculate relative position
+    const canvas = document.querySelector('.canvas-area')
+    if (canvas) {
+      const canvasRect = canvas.getBoundingClientRect()
+      const relativeX = e.clientX - canvasRect.left
+      const relativeY = e.clientY - canvasRect.top
+      
+      // Only create if dropped within canvas bounds
+      if (relativeX >= 0 && relativeY >= 0 && 
+          relativeX <= canvasRect.width && relativeY <= canvasRect.height) {
+        emit('create', dragState.type, relativeX, relativeY)
+      }
+    }
+  } else {
+    // Just a click, not a drag - use default positioning
+    emit('create', dragState.type)
+  }
+  
+  dragState = null
 }
 </script>
 
