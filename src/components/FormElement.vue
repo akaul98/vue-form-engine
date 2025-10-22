@@ -24,13 +24,13 @@
       <!-- Editing view: show a simple wireframe representing the control -->
       <div class="wire">
         <div class="label">{{ element.props?.label || element.type }}</div>
-        <div class="control" v-if="element.type === 'text'">[ text input ]</div>
-        <div class="control" v-if="element.type === 'textarea'">[ textarea ]</div>
-        <div class="control" v-if="element.type === 'checkbox'">[ checkbox ]</div>
-        <div class="control" v-if="element.type === 'select'">[ select ]</div>
-        <div class="control" v-if="element.type === 'radio'">[ radio ]</div>
-        <div class="control" v-if="element.type === 'date'">[ date ]</div>
-        <div class="control" v-if="element.type === 'button'">[ button ]</div>
+        <div class="control" v-if="element.type === 'text'"></div>
+        <div class="control" v-if="element.type === 'textarea'"></div>
+        <div class="control" v-if="element.type === 'checkbox'"></div>
+        <div class="control" v-if="element.type === 'select'"></div>
+        <div class="control" v-if="element.type === 'radio'"></div>
+        <div class="control" v-if="element.type === 'date'"></div>
+        <div class="control" v-if="element.type === 'button'"></div>
       </div>
     </template>
   </div>
