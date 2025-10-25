@@ -47,13 +47,7 @@ import Palette from './components/Palette.vue'
 import Canvas from './components/Canvas.vue'
 import PropertiesPanel from './components/PropertiesPanel.vue'
 
-const elements = ref([
-  // example element
-  // {
-  //   id: 'el_1', type: 'text', x: 50, y: 20, width: 280, height: 40,
-  //   props: { label: 'First name', placeholder: 'Enter name', required: true }
-  // }
-])
+const elements = ref([])
 const selectedId = ref(null)
 const preview = ref(false)
 const errors = ref([])
